@@ -1,19 +1,37 @@
 import 'package:bimo/Components/components.dart';
 import 'package:bimo/Cubit/Cubit.dart';
 import 'package:bimo/Cubit/States.dart';
+import 'package:bimo/shared/cache.dart';
 import 'package:bimo/style/icon_broken.dart';
 import 'package:bimo/users/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   var namecontroller = TextEditingController();
+
   var emailcontroller = TextEditingController();
+
   var passwordcontroller = TextEditingController();
+
   var phonecontroller = TextEditingController();
 
+  var biocontroller = TextEditingController();
+
   var formkey = GlobalKey<FormState>();
+  var passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +46,7 @@ class SignIn extends StatelessWidget {
                 backgroundColor: Colors.green,
                 textColor: Colors.white,
                 fontSize: 18.0);
+
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => Users()),
@@ -97,8 +116,28 @@ class SignIn extends StatelessWidget {
                       defulttextform(
                           texttype: TextInputType.visiblePassword,
                           preficon: Icon(SoldIcon.Password),
+                          suficon: IconButton(
+                            icon: Icon(passwordVisible
+                                ? Icons.remove_red_eye_outlined
+                                : Icons.remove_red_eye),
+                            onPressed: () {
+                              setState(() {
+                                print('$passwordVisible');
+                                passwordVisible = !passwordVisible;
+                              });
+                            },
+                          ),
                           label: 'Password',
                           control: passwordcontroller,
+                          invisible: !passwordVisible),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      defulttextform(
+                          texttype: TextInputType.text,
+                          preficon: Icon(SoldIcon.Show),
+                          label: 'Bio',
+                          control: biocontroller,
                           invisible: false),
                       SizedBox(
                         height: 20,
@@ -108,12 +147,13 @@ class SignIn extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.greenAccent,
+                          color: Colors.blueGrey[400],
                         ),
                         child: TextButton(
                           onPressed: () {
                             if (formkey.currentState!.validate()) {
                               CubitChatMom.getdata(context).signin(
+                                  bio: biocontroller.text,
                                   name: namecontroller.text,
                                   phone: phonecontroller.text,
                                   email: emailcontroller.text,

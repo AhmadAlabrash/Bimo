@@ -2,6 +2,8 @@ import 'package:bimo/Components/components.dart';
 import 'package:bimo/Sign/Signin.dart';
 import 'package:bimo/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:hexcolor/hexcolor_web.dart';
 
 class ChosseSign extends StatelessWidget {
   @override
@@ -25,25 +27,31 @@ class ChosseSign extends StatelessWidget {
           Spacer(
             flex: 1,
           ),
-          defultButton(
-              onpress: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              },
-              btncolor: Colors.greenAccent,
-              btnwidth: double.infinity,
-              text: 'LogIn'),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            },
+            child: defultButton(
+                textColor: Colors.white,
+                btncolor: Colors.blueGrey,
+                btnwidth: double.infinity,
+                text: 'LogIn'),
+          ),
           SizedBox(
             height: 20,
           ),
-          defultButton(
-              onpress: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
-              },
-              btncolor: Colors.lightBlue,
-              btnwidth: double.infinity,
-              text: 'SignIn'),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SignIn()));
+            },
+            child: defultButton(
+                textColor: Colors.white,
+                btncolor: Colors.blueGrey,
+                btnwidth: double.infinity,
+                text: 'SignIn'),
+          ),
           Spacer(
             flex: 2,
           ),

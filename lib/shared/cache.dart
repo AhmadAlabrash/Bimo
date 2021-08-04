@@ -15,4 +15,8 @@ class Cachehelp {
   static Future getuid() async {
     return await shared!.get('uid');
   }
+
+  static Future removeuid() async {
+    return await shared!.clear();
+  }
 }
